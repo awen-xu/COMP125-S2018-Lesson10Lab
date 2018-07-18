@@ -2,6 +2,7 @@
 (function() {
   // App variables
   let hash;
+  let addressBook;
 
   // STEP 1: create an XHR variable
   let XHR;
@@ -33,6 +34,27 @@
     XHR.send();
   }
 
+
+  function loadJSON(){
+    XHR = new XMLHttpRequest();
+
+    XHR.addEventListener("readystatechange", function() {
+      if (this.status === 200) {
+        if (this.readyState === 4) {
+          addressBook = JSON.parse(this.responseText);
+
+          addressBook.Contacts.forEach(contact => {
+            console.log(contact);
+          });
+        }
+      }
+    });
+    XHR.open("GET", "/data.json");
+    XHR.send();
+
+  }
+
+
   /**
    * This function is used for Intialization
    */
@@ -55,6 +77,11 @@
     insertHTML("/Views/partials/header.html", "header");
     setPageContent("/Views/content/home.html");
     insertHTML("/Views/partials/footer.html", "footer");
+
+    loadJSON();
+
+    
+
 
     /*
     $.get("/Views/partials/header.html", function(data){
@@ -84,12 +111,14 @@
     hash = location.hash.slice(1);
     document.title = hash;
 
+    // sets the url 
     history.pushState("", document.title, "/" + hash.toLowerCase() + "/");
 
     setPageContent("/Views/content/" + hash.toLowerCase() + ".html");
   }
 
   function setActiveNavLink() {
+    // sets all list item class to nav-item
     document.querySelectorAll("li.nav-item").forEach(function(listItem) {
       listItem.setAttribute("class", "nav-item");
     });

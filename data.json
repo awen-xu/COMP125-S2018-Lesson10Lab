@@ -1,12 +1,14 @@
 {
-    "AddressBook": [
+    "Contacts": [
         {
             "name": "Tom Tsiliopoulos",
-            "number": "416-555-5555"
+            "number": "416-555-5555",
+            "email": "tom@example.ca"
         },
         {
             "name": "John Smith",
-            "number": "416-556-5555"
+            "number": "416-556-5555",
+            "email": "john@example.ca"
         }
     ]
 }
